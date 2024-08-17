@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -20,16 +21,21 @@ This thing is required to fix the things path. 🙂
 */
 
 function fixPath(path) {
-  path = path || ""
+  path = path || "";
   if (!path.startsWith("/")) path = "/" + path;
-  return document.location.origin + path;
+
+  if ("https://ramiresoliv.github.io/dockmaker/" == "") {
+    return document.location.origin + path;
+  } else {
+    return "https://ramiresoliv.github.io/dockmaker/" + path;
+  }
 }
  </script> <script> /*
 This adds base style to the pages
 */
 
-// this loads very fast the style. But can cause issues too. If you think this is bad,
-// idk what you should do.
+// This loads very fast the style. But can cause issues too. If you think this is bad,
+// idk what you should do. (just trust)
 const base_style_link = document.getElementById("base_style_link");
 console.log(fixPath("style/base.css"));
 base_style_link.href = fixPath("style/base.css");

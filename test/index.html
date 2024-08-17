@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -15,26 +14,29 @@
 
     <!-- and it's easy to individually load additional languages -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
-    <script> /*
+    <script>
+      /*
 Path fixer:
 This thing is required to fix the things path. 🙂
 */
 
-function fixPath(path) {
-  path = path || ""
-  if (!path.startsWith("/")) path = "/" + path;
-  return document.location.origin + path;
-}
- </script> <script> /*
+      function fixPath(path) {
+        path = path || "";
+        if (!path.startsWith("/")) path = "/" + path;
+        return document.location.origin + path;
+      }
+    </script>
+    <script>
+      /*
 This adds base style to the pages
 */
 
-// this loads very fast the style. But can cause issues too. If you think this is bad,
-// idk what you should do.
-const base_style_link = document.getElementById("base_style_link");
-console.log(fixPath("style/base.css"));
-base_style_link.href = fixPath("style/base.css");
- </script>
+      // this loads very fast the style. But can cause issues too. If you think this is bad,
+      // idk what you should do.
+      const base_style_link = document.getElementById("base_style_link");
+      console.log(fixPath("style/base.css"));
+      base_style_link.href = fixPath("style/base.css");
+    </script>
     <style id="base_style"></style>
     <script>
       hljs.highlightAll();
@@ -126,11 +128,11 @@ base_style_link.href = fixPath("style/base.css");
           </div>
           <div class="right"></div>
         </div>
-        <div class="page"><h1>Syntax.asasdasd</h1>
+        <div class="page">
+          <h1>Syntax.asasdasd</h1>
 
-
-<p>Very hard.2</p>
-</div>
+          <p>Very hard.2</p>
+        </div>
       </div>
     </div>
   </body>

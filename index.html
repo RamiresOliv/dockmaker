@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My self.</title>
+    <link rel="shortcut icon" href="ico.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./style/base.css" id="base_style_link" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script> /*
+Path fixer:
+This thing is required to fix the things path. 🙂
+*/
+
+function fixPath(path) {
+  path = path || ""
+  if (!path.startsWith("/")) path = "/" + path;
+  return document.location.origin + path;
+}
+ </script> <script> /*
+This adds base style to the pages
+*/
+
+// this loads very fast the style. But can cause issues too. If you think this is bad,
+// idk what you should do.
+const base_style_link = document.getElementById("base_style_link");
+console.log(fixPath("style/base.css"));
+base_style_link.href = fixPath("style/base.css");
+ </script>
+    <style id="base_style"></style>
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      src="https://kit.fontawesome.com/0dcf98cd2f.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      window.onload = () => {
+        const glossary = document.getElementById("glossary");
+        const github_logo = document.getElementById("github_logo");
+        const menu_toggle = document.getElementById("menu_toggle");
+        const print_icon = document.getElementById("print_icon");
+
+        let menu_state = true;
+        menu_toggle.addEventListener("click", (m) => {
+          if (menu_state == true) {
+            menu_state = false;
+            menu_toggle.className = "fa-solid fa-square-caret-right";
+            glossary.style.display = "none";
+          } else {
+            menu_state = true;
+            menu_toggle.className = "fa-solid fa-square-caret-left";
+            glossary.style.display = "block";
+          }
+        });
+
+        github_logo.addEventListener("click", (m) => {
+          window.open("https://github.com/RamiresOliv/RamiresOliv", "_blank");
+        });
+
+        print_icon.addEventListener("click", (m) => {
+          print();
+        });
+
+        console.log("loaded.");
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <nav id="glossary" class="sidebar">
+        <div class="header">
+          <h3>My self.</h3>
+        </div>
+        <hr />
+        <ul>
+          <li><a href="..">rootah</a></li>
+          <li><a href="test">1. test</a></li>
+        </ul>
+        <div class="footer">
+          <p>
+            Build with
+            <a href="https://github.com/RamiresOliv/dockmaker">dockMaker</a>
+          </p>
+          <p>
+            Hosted in
+            <a href="https://github.com/RamiresOliv/dockmaker">Github pages</a>
+          </p>
+          <i
+            style="color: #000000; font-size: 20px"
+            class="fa-brands fa-github"
+          ></i>
+        </div>
+      </nav>
+
+      <div class="content">
+        <div class="header">
+          <h2>My self.</h2>
+
+          <div class="left">
+            <i
+              id="menu_toggle"
+              class="fa-solid fa-square-caret-left"
+              style="cursor: pointer"
+            ></i>
+            <i
+              id="print_icon"
+              class="fa-solid fa-print"
+              style="cursor: pointer"
+            ></i>
+            <i
+              id="github_logo"
+              class="fa-brands fa-github"
+              style="cursor: pointer"
+            ></i>
+          </div>
+          <div class="right"></div>
+        </div>
+        <div class="page"><a href="https://github.com/RamiresOliv"> <img src="_assets/cat_icon.jpeg" alt="cate (oops)" style="margin: 20px;" min-width="400px" max-width="400px" width="400px" align="right"> </a>
+<i>"Ramires"</i><br>
+
+<p align="left">Meu nome é Gabriel, um programador focado em backend, viciado em café, e gosto de usar principalmente <a href="https://developer.mozilla.org/docs/conflicting/Web/JavaScript"><img src="https://github.com/user-attachments/assets/a8bac995-cf21-4eec-83c3-7b157baf134b" alt="JS" height="20px" width="20px" align="center"></a>, <a href="https://www.lua.org/"><img src="https://github.com/user-attachments/assets/ed6901bd-1b8b-4c71-ab0e-2f45e17cc126" alt="LUA" height="20" width="20px" align="center"></a> e <a href="https://www.python.org/"><img src="https://github.com/user-attachments/assets/604147c0-4315-4e23-9e52-6115af7f76b2" alt="PY" height="20px" width="20px" align="center"></a>. Não tenho muitos projetos sérios, mas se quiser dar uma olhada nas minhas criações, sinta-se à vontade.
+<p>Atualmente um dos meus maiores focos é a minha própria linguagem de programação feita em lua (luau), apelidada de <a href="https://github.com/RamiresOliv/RubberScript"><strong>RubberScript</strong></a> ou só Rubber.</p>
+
+</p>
+
+<hr>
+
+
+<font align="left">
+<h4>Projetos Principais:</h4>
+<a href="https://github.com/RamiresOliv/RubberScript">OzoneOS: rubber-script</a>
+<br>
+<a href="https://github.com/RamiresOliv/dockmaker">webdesign: dockMaker</a>
+<br>
+<a href="https://github.com/RamiresOliv/local_db_express">npm: local-db-express</a>
+<br>
+</font>
+
+<hr>
+
+
+<pre><code class="language-lua">(print (str Hello World, here is Rubber! <3))</code></pre>
+
+<blockquote>
+<p>Inspiração para esse layout: <a href="https://github.com/ArthurFt">ArthurFt</a>.</p>
+</blockquote>
+
+
+<button>asdasdas</button></div>
+      </div>
+    </div>
+  </body>
+</html>

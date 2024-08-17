@@ -24,10 +24,10 @@ function fixPath(path) {
   path = path || "";
   if (!path.startsWith("/")) path = "/" + path;
 
-  if ("https://ramiresoliv.github.io/dockmaker/" == "") {
+  if ("https://ramiresoliv.github.io/dockmaker" == "") {
     return document.location.origin + path;
   } else {
-    return "https://ramiresoliv.github.io/dockmaker/" + path;
+    return "https://ramiresoliv.github.io/dockmaker" + path;
   }
 }
  </script> <script> /*

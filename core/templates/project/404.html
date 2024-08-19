@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${book_name} / 404</title>
+    <link rel="shortcut icon" href="ico.png" type="image/x-icon" />
+    ${import:css/core-base.css}
+
+    <script>
+      window.onload = () => {
+        const pathName = document.getElementById("pathName");
+        const facesP = document.getElementById("facesP");
+
+        const faces = [":(", ":<"];
+
+        let path = window.location.pathname;
+
+        if (path.length > 50) {
+          console.log("too big");
+          path = path.slice(0, 50) + "...";
+        }
+
+        pathName.textContent = path;
+
+        setInterval(() => {
+          facesP.textContent =
+            facesP.textContent +
+            faces[Math.floor(Math.random(1) * faces.length)] +
+            " ";
+        }, 1000);
+      };
+    </script>
+
+    <style>
+      .hover-underline:hover {
+        text-decoration: underline;
+      }
+      .root-color {
+        color: #4faf40;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="text-align: center" class="content">
+      <div class="header">
+        <h2>${book_name} / 404</h2>
+      </div>
+      <p id="pathName"></p>
+      <p>The requested path doesn't exists.</p>
+      <a class="hover-underline" href="${book_url}"
+        >-> Return to <span class="root-color">root</span>?</a
+      >
+      <br /><br /><br /><br /><br />
+      <p id="facesP"></p>
+    </div>
+  </body>
+</html>

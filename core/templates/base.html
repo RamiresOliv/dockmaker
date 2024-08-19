@@ -1,0 +1,125 @@
+<!--
+        Html content compiled by dockmaker.
+          -> https://github.com/RamiresOliv/dockmaker
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${book_name} / ${page_name}</title>
+    <link
+      rel="shortcut icon"
+      href="./favicon.ico"
+      type="image/x-icon"
+      id="base_favicon_link"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+
+    ${import:js/pathFix.js} ${import:js/favicon.js} ${import:css/core-base.css}
+    <script
+      src="https://kit.fontawesome.com/0dcf98cd2f.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      window.onload = () => {
+        const glossary = document.getElementById("glossary");
+        const github_logo = document.getElementById("github_logo");
+        const menu_toggle = document.getElementById("menu_toggle");
+        const print_icon = document.getElementById("print_icon");
+
+        let menu_state = true;
+        menu_toggle.addEventListener("click", (m) => {
+          if (menu_state == true) {
+            menu_state = false;
+            menu_toggle.className = "fa-solid fa-square-caret-right";
+            glossary.style.display = "none";
+          } else {
+            menu_state = true;
+            menu_toggle.className = "fa-solid fa-square-caret-left";
+            glossary.style.display = "block";
+          }
+        });
+
+        github_logo.addEventListener("click", (m) => {
+          window.open("${author_github}", "_blank");
+        });
+
+        print_icon.addEventListener("click", (m) => {
+          print();
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <nav id="glossary" class="sidebar">
+        <div class="header">
+          <h3>
+            <a href="${book_url}"
+              ><ico style="color: #000000" class="fa-solid fa-cubes"></ico>
+              ${book_name}</a
+            >
+          </h3>
+        </div>
+        <hr />
+        <ul>
+          ${core-book_nav_items}
+        </ul>
+      </nav>
+
+      <div class="content">
+        <div class="header">
+          <h2>${book_name}</h2>
+
+          <div class="left">
+            <i
+              id="menu_toggle"
+              class="fa-solid fa-square-caret-left"
+              style="cursor: pointer"
+            ></i>
+            <i
+              id="print_icon"
+              class="fa-solid fa-print"
+              style="cursor: pointer"
+            ></i>
+            <i
+              id="github_logo"
+              class="fa-brands fa-github"
+              style="cursor: pointer"
+            ></i>
+          </div>
+          <div class="right"></div>
+        </div>
+        <div class="page">${page_content}</div>
+
+        <div class="footer">
+          <p>
+            <a href="https://github.com/RamiresOliv/dockmaker"
+              ><ico class="fa-solid fa-cubes"></ico> Built with dockMaker</a
+            >
+          </p>
+          <p>
+            <a href="https://pages.github.com/"
+              ><ico class="fa-solid fa-earth-americas"></ico> Hosted in Github
+              pages</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

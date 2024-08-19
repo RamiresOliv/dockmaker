@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+const { version, name, description } = require(__dirname + "/../package.json");
+const { readdirSync } = require("fs");
+const { Command } = require("commander");
+const program = new Command();
+
+program.name(name).description(description).version(version);
+
+const read = readdirSync(__dirname + "/../core/commands");
+read.forEach((child) => {
+  program.addCommand(require("../core/commands/" + child));
+});
+
+program.parse(process.argv);

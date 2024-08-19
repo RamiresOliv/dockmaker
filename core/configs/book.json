@@ -1,0 +1,15 @@
+{
+  "name": "string",
+  "description": "string",
+  "url": "string",
+  "author": {
+    "name": "string",
+    "github": "string"
+  },
+  "navigation": {
+    "enabled": "boolean",
+    "whitelist": "object",
+    "blacklist_dir": "object"
+  },
+  "includes": "object"
+}

@@ -1,0 +1,16 @@
+Other very important stuff:
+
+book.json is where you will set the book informations.
+settings.json is how dockmaker will take care of your project while is in the machine.
+
+Q: How I publish this to github pages?
+A: uh.. Good question. Try just posting the content made in the directory "site" (It's possible. No jk.)
+
+Q: About the cli commands?
+A: just use dockmaker help <command> to see what the command does and how to use.
+
+Q: Others specific things?
+A: Wait for full documentation.
+
+Thats all, thanks for be using this project <3
+-> Remember credits. <-

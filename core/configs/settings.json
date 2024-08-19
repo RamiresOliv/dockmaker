@@ -1,0 +1,14 @@
+{
+  "includes": {
+    "dir": "string"
+  },
+  "output": {
+    "dir": "string"
+  },
+  "src": {
+    "dir": "string"
+  },
+  "localhost": {
+    "port": "number"
+  }
+}

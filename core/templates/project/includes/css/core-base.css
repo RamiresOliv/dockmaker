@@ -1,0 +1,192 @@
+/*
+You can disable this super insane css by removing "${import:css/core-base.css}", or deleting this file.
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+body,
+h2,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+  font-family: "Inconsolata", monospace;
+}
+
+ul ul {
+  margin-left: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem */
+}
+
+.sidebar {
+  display: block;
+
+  width: 200px;
+  background-color: #fbfbfb;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+
+  resize: horizontal;
+  overflow: auto;
+  min-width: 160px;
+  max-width: 1000px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  text-decoration: solid;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #000000;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar ul li a:hover {
+  color: #9a9a9a;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+}
+.content .page {
+  word-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: block;
+  max-width: 1300px;
+  gap: 10px;
+  padding: 20px;
+}
+
+.content .page a {
+  text-decoration: underline;
+  color: #4a5666;
+}
+.content .page a:visited {
+  color: #20579e;
+}
+
+.content .page h1 {
+  font-weight: 900;
+}
+.container .page blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 16px;
+  margin-left: 0;
+  font-style: italic;
+  color: #969696;
+}
+
+.content section {
+  margin-bottom: 40px;
+}
+
+.content h2 {
+  margin-bottom: 10px;
+}
+
+.content p {
+  line-height: 1.6;
+}
+
+.content .header {
+  margin-bottom: 20px;
+  padding: 10px;
+  color: #000000;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.content .header h3 {
+  font-weight: 900;
+}
+
+.content .footer {
+  padding: 10px;
+  text-align: center;
+}
+
+.content .header .left {
+  position: absolute;
+  padding: 10px;
+  left: 0px;
+  flex: 10px;
+  padding-left: 15px;
+}
+.content .header .right {
+  position: absolute;
+  right: 0;
+  padding-right: 20px;
+}
+
+i {
+  transition: transform 0.3s, color 0.3s;
+}
+
+i:hover {
+  transform: scale(1.2);
+  color: #317bdb;
+}
+
+button {
+  display: inline-block;
+  padding: 5px 20px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #333;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+  background-color: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace; /* Fonte monoespaçada */
+  background-color: #f8f8f8; /* Fundo suave */
+  border-radius: 4px; /* Cantos arredondados */
+  padding: 8px; /* Espaçamento interno */
+  color: #333; /* Cor do texto */
+  overflow-x: auto; /* Rolagem horizontal se necessário */
+}
+code {
+  display: inline; /* Exibe inline para código embutido */
+  background-color: #e6e6e6; /* Fundo mais claro para código inline */
+  padding: 2px 4px; /* Espaçamento interno reduzido */
+  border-radius: 4px; /* Cantos arredondados */
+}

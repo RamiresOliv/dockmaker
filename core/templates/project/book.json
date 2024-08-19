@@ -1,0 +1,17 @@
+{
+  "name": "DockMaker",
+  "description": "A simple documentation website creator.",
+  "url": "",
+  "author": {
+    "name": "RamiresOliv",
+    "github": "https://github.com/RamiresOliv/RamiresOliv"
+  },
+  "navigation": {
+    "enabled": true,
+    "whitelist": [".md", ".html"],
+    "blacklist_dir": ["images"]
+  },
+  "includes": {
+    "test": "argument."
+  }
+}

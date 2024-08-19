@@ -1,0 +1,23 @@
+{
+  "name": "dockmaker",
+  "description": "A simple tool to make documentation websites.\n  https://github.com/RamiresOliv/dockmaker",
+  "version": "1.0.0",
+  "main": "bin/dockmaker",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "dockmaker": "bin/dockmaker",
+    "dkm": "bin/dockmaker"
+  },
+  "keywords": [],
+  "author": "RamiresOliv",
+  "license": "MIT",
+  "dependencies": {
+    "colors-cli": "^1.0.33",
+    "commander": "^12.1.0",
+    "express": "^4.19.2",
+    "inquirer": "^10.1.8",
+    "markdown-it": "^14.1.0"
+  }
+}

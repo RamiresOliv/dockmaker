@@ -6,7 +6,7 @@ const files = require("../modules/files.js");
 const build = require("../modules/build.js");
 
 module.exports = new Command("guide")
-  .description("Informations about how to use.")
+  .description("Manual of Dockmaker.")
   .action(async () => {
     console.log("Visite the dockmaker online manual:");
   });

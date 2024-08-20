@@ -11,7 +11,7 @@ const files = require("../modules/files.js");
 const replaces = require("../modules/replaces.js");
 
 module.exports = new Command("serve")
-  .description("start a localhost server")
+  .description("Host a local server and live change updates.")
   .option(
     "-b, --build <boolean>",
     "accept or decline build before servers open."

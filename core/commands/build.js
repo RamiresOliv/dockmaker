@@ -6,7 +6,7 @@ const files = require("../modules/files.js");
 const build = require("../modules/build.js");
 
 module.exports = new Command("build")
-  .description("compiles all src files")
+  .description("Builds up to you the html side. (compiles)")
   .action(async () => {
     const currentPath = process.cwd();
 

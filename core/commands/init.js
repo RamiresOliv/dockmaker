@@ -8,7 +8,7 @@ const bfs = require("../modules/bfs.js");
 const files = require("../modules/files.js");
 
 module.exports = new Command("init")
-  .description("starts a new dockmaker project.")
+  .description("Inits a new project on current path.")
   .option("-n, --name", "Project name")
   .option("-b, --blank", "blank project")
   .option(

@@ -136,7 +136,7 @@ module.exports = new Command("serve")
       for (const file of read) {
         try {
           const watcher = fsDefault.watch(file, async () => {
-            await changed(file);
+            changed(file);
           });
           watcher.on("error", (error) => {
             if (error.code === "ENOENT" || error.code === "EPERM") {
@@ -155,7 +155,9 @@ module.exports = new Command("serve")
     let working = true;
     async function changed(fileName) {
       for (const v of watchs) {
-        v.close();
+        if (v && typeof v.close === "function") {
+          v.close();
+        }
       }
       watchs = [];
       if (working) {

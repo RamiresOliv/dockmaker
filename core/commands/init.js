@@ -80,7 +80,7 @@ module.exports = new Command("init")
 
         console.clear();
         if (doReplaceFixA.confirmation == true) {
-          await project_template.forEach(async (child) => {
+          for (const child of project_template) {
             const child_path = path.join(
               __dirname + "/../templates/project",
               child
@@ -93,9 +93,9 @@ module.exports = new Command("init")
                 console.log("[-] Removed: " + inProjectPath);
               }
             }
-          });
+          }
         }
-        await project_template.forEach(async (child) => {
+        for (const child of project_template) {
           const child_path = path.join(
             __dirname + "/../templates/project",
             child
@@ -113,7 +113,7 @@ module.exports = new Command("init")
 
             console.log("[+] Build: " + target_path);
           }
-        });
+        }
 
         console.log("[:] Done. ");
       } else {
@@ -124,7 +124,7 @@ module.exports = new Command("init")
 
     const validade = await files.validate(currentPath);
     if (!validade[0]) {
-      await project_template.forEach(async (child) => {
+      for (const child of project_template) {
         const child_path = path.join(
           __dirname + "/../templates/project",
           child
@@ -139,7 +139,7 @@ module.exports = new Command("init")
         }
 
         console.log("[+] Build: " + target_path);
-      });
+      }
       console.log("[:] Done. ");
       console.log("[:] Next step, start a server! 'dockmaker serve' ");
     } else {

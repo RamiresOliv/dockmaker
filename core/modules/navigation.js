@@ -11,18 +11,18 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
 
     const files = await fs.readdir(directory);
 
-    files.forEach(async (file) => {
+    for (const file of files) {
       let filePathDefault = path.join(directory, file).replace(src + "\\", "");
       let rightPATH = filePathDefault.replace(new RegExp(" ", "g"), "-");
       let rightNAME = path.basename(file);
 
       if (configs.book.navigation.whitelist[0] != "*") {
-        configs.book.navigation.whitelist.forEach((v) => {
+        for (const v of configs.book.navigation.whitelist) {
           rightPATH = rightPATH.replace(new RegExp(v, "g"), "");
-        });
-        configs.book.navigation.whitelist.forEach((v) => {
+        }
+        for (const v of configs.book.navigation.whitelist) {
           rightNAME = rightNAME.replace(new RegExp(v, "g"), "");
-        });
+        }
       }
 
       function validDir(name) {
@@ -61,7 +61,7 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
           fileIndex++; // Incrementa o contador global
         }
       }
-    });
+    }
 
     return result;
   }
@@ -72,9 +72,9 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
   nav_send.push('<li><a href="${book_url}">1. home</a></li>');
 
   const files = await formatFilesInDirectory(src);
-  files.forEach((v) => {
+  for (const v of files) {
     nav_send.push(v);
-  });
+  }
 
   const page_nav_items = new RegExp(`\\$\\{core-book_nav_items\\}`, "g");
   return str.replace(page_nav_items, nav_send.join("\n"));

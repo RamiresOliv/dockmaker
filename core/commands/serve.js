@@ -28,8 +28,8 @@ module.exports = new Command("serve")
     if (!validade[0]) {
       return console.error("[error] " + validade[1]);
     }
-    await files.checks(configs.settings);
     const configs = files.getSettings(currentPath);
+    await files.checks(configs.settings);
     const output_dir = path.join(currentPath, configs.settings.output.dir);
     const src_dir = path.join(currentPath, configs.settings.src.dir);
     const app = express();
@@ -133,9 +133,9 @@ module.exports = new Command("serve")
           await changed(src_dir);
         })
       );
-      read.forEach((file) => {
+      for (const file of read) {
         try {
-          const watcher = fs.watch(file, async () => {
+          const watcher = fsDefault.watch(file, async () => {
             await changed(file);
           });
           watcher.on("error", (error) => {
@@ -149,14 +149,14 @@ module.exports = new Command("serve")
         } catch (error) {
           console.log(colors.red("[!] WATCHER FATAL ERROR: " + error));
         }
-      });
+      }
     }
 
     let working = true;
     async function changed(fileName) {
-      watchs.forEach((v) => {
+      for (const v of watchs) {
         v.close();
-      });
+      }
       watchs = [];
       if (working) {
         console.log(colors.yellow("[!] Build rate-limited."));

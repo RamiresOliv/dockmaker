@@ -14,8 +14,8 @@ module.exports = new Command("build")
     if (!validade[0]) {
       return console.error("[error] " + validade[1]);
     }
-    await files.checks(configs.settings);
     const configs = files.getSettings(currentPath);
+    await files.checks(configs.settings);
 
     await build(currentPath, configs, true);
   });

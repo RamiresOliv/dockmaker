@@ -9,7 +9,7 @@ async function compareJsonMap(jsonPath) {
   const readJson = await fs.readFile(jsonPath);
   const json = JSON.parse(readJson.toString());
   const map = JSON.parse(
-    fs.readFileSync(path.join(jsonMaps, path.basename(jsonPath))).toString()
+    (await fs.readFile(path.join(jsonMaps, path.basename(jsonPath)))).toString()
   );
 
   function work(data, mapdat) {
@@ -52,12 +52,12 @@ exports.validate = async (dir) => {
   let missingFiles = [];
   let files = ["settings.json", "book.json"];
 
-  files.forEach((file) => {
+  for (const file of files) {
     if (!fsDefault.existsSync(path.join(dir, file))) {
       isMissing = true;
       missingFiles.push(file);
     }
-  });
+  }
 
   if (isMissing)
     return [

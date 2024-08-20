@@ -44,12 +44,10 @@ module.exports = async (pwd, configs, str, compilation, origin, port) => {
   );
 
   const replacer_dir = path.join(__dirname, "replacer");
-  await require("fs/promises")
-    .readdir(replacer_dir)
-    .forEach((v) => {
-      const what = path.join(replacer_dir, v);
-      str = require(what)(pwd, configs, str, defaultReplaces, compilation);
-    });
+  for (const v of await require("fs/promises").readdir(replacer_dir)) {
+    const what = path.join(replacer_dir, v);
+    str = require(what)(pwd, configs, await str, defaultReplaces, compilation);
+  }
 
   return str;
 };

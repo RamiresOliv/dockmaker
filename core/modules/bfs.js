@@ -32,10 +32,10 @@ exports.copyDir = async (src, dest) => {
 exports.readFullDir = async (dir) => {
   const result = [];
 
-  function readDir(currentPath) {
-    const items = fs.readdir(currentPath);
+  async function readDir(currentPath) {
+    const items = await fs.readdir(currentPath);
 
-    items.forEach(async (item) => {
+    for (const item of items) {
       const fullPath = path.join(currentPath, item);
       const stats = await fs.stat(fullPath);
 
@@ -44,14 +44,14 @@ exports.readFullDir = async (dir) => {
         //   return;
         // }
         result.push(fullPath);
-        readDir(fullPath);
+        await readDir(fullPath);
       } else if (stats.isFile()) {
         result.push(fullPath);
       }
-    });
+    }
   }
 
-  readDir(dir);
+  await readDir(dir);
   return result;
 };
 

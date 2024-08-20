@@ -102,7 +102,7 @@ async function work(pwd, configs, child, target, talk, customPort) {
       );
     }
   } else {
-    await fs.mkdirSync(
+    await fs.mkdir(
       path
         .join(output_dir, child.replace(src_dir + "\\", ""))
         .replace(".md", ".html")
@@ -135,14 +135,15 @@ async function work(pwd, configs, child, target, talk, customPort) {
 module.exports = async (pwd, configs, talk, customPort) => {
   const src_dir = path.join(pwd, configs.settings.src.dir);
   const output_dir = path.join(pwd, configs.settings.output.dir);
-  await fs.readdir(output_dir).forEach(async (v) => {
+  for (const v of await fs.readdir(output_dir)) {
     await fs.rm(path.join(output_dir, v), {
       recursive: true,
       force: true,
     });
-  });
+  }
 
-  await bfs.readFullDir(src_dir).forEach(async (child) => {
+  const r = await bfs.readFullDir(src_dir);
+  for (const child of r) {
     const stat = await fs.stat(child);
     const parent = path.dirname(child);
     const parentName = path.basename(parent);
@@ -150,7 +151,7 @@ module.exports = async (pwd, configs, talk, customPort) => {
 
     if (parent == src_dir) {
       if (stat.isFile()) {
-        work(
+        await work(
           pwd,
           configs,
           child,
@@ -178,7 +179,7 @@ module.exports = async (pwd, configs, talk, customPort) => {
         }
       }
     } else {
-      work(
+      await work(
         pwd,
         configs,
         child,
@@ -187,7 +188,7 @@ module.exports = async (pwd, configs, talk, customPort) => {
         customPort
       );
     }
-  });
+  }
 
   const indexPath = path.join(src_dir, "index.md");
   if (!fsDefault.existsSync(indexPath)) {
@@ -216,7 +217,7 @@ module.exports = async (pwd, configs, talk, customPort) => {
     console.log("[?] Missing 404.html");
   }
 
-  await fs.readdir(includes).forEach(async (child) => {
+  for (const child of await fs.readdir(includes)) {
     const filePath = path.join(includes, child);
     const fileStat = await fs.stat(filePath);
 
@@ -227,5 +228,5 @@ module.exports = async (pwd, configs, talk, customPort) => {
         await bfs.copyDir(filePath, path.join(output_dir, child));
       }
     }
-  });
+  }
 };

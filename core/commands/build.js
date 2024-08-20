@@ -1,5 +1,6 @@
 const { Command } = require("commander");
-const fs = require("fs");
+const fsDefault = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 const files = require("../modules/files.js");
 const build = require("../modules/build.js");
@@ -13,9 +14,8 @@ module.exports = new Command("build")
     if (!validade[0]) {
       return console.error("[error] " + validade[1]);
     }
-
+    await files.checks(configs.settings);
     const configs = files.getSettings(currentPath);
-    files.checks(configs.settings);
 
-    build(currentPath, configs, true);
+    await build(currentPath, configs, true);
   });

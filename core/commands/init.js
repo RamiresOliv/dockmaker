@@ -1,8 +1,8 @@
 const { Command } = require("commander");
 const color = require("colors-cli");
 const inquirer = require("inquirer");
-
-const fs = require("fs");
+const fsDefault = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 const bfs = require("../modules/bfs.js");
 const files = require("../modules/files.js");
@@ -18,7 +18,7 @@ module.exports = new Command("init")
   )
   .action(async (options) => {
     const currentPath = process.cwd();
-    const project_template = fs.readdirSync(
+    const project_template = await fs.readdir(
       __dirname + "/../templates/project"
     );
 
@@ -80,35 +80,35 @@ module.exports = new Command("init")
 
         console.clear();
         if (doReplaceFixA.confirmation == true) {
-          project_template.forEach((child) => {
+          await project_template.forEach(async (child) => {
             const child_path = path.join(
               __dirname + "/../templates/project",
               child
             );
-            const child_stat = fs.statSync(child_path);
+            const child_stat = await fs.stat(child_path);
             if (child_stat.isFile()) {
               const inProjectPath = path.join(currentPath, child);
-              if (fs.existsSync(inProjectPath)) {
-                fs.unlinkSync(inProjectPath);
+              if (fsDefault.existsSync(inProjectPath)) {
+                await fs.unlink(inProjectPath);
                 console.log("[-] Removed: " + inProjectPath);
               }
             }
           });
         }
-        project_template.forEach((child) => {
+        await project_template.forEach(async (child) => {
           const child_path = path.join(
             __dirname + "/../templates/project",
             child
           );
           const target_path = path.join(currentPath, child);
           const inProjectPath = path.join(currentPath, child);
-          const stat = fs.statSync(child_path);
+          const stat = await fs.stat(child_path);
 
-          if (!fs.existsSync(inProjectPath)) {
+          if (!fsDefault.existsSync(inProjectPath)) {
             if (stat.isFile()) {
-              fs.copyFileSync(child_path, target_path);
+              await fs.copyFile(child_path, target_path);
             } else {
-              bfs.copyDir(child_path, target_path);
+              await bfs.copyDir(child_path, target_path);
             }
 
             console.log("[+] Build: " + target_path);
@@ -122,20 +122,20 @@ module.exports = new Command("init")
       return;
     }
 
-    const validade = files.validate(currentPath);
+    const validade = await files.validate(currentPath);
     if (!validade[0]) {
-      project_template.forEach((child) => {
+      await project_template.forEach(async (child) => {
         const child_path = path.join(
           __dirname + "/../templates/project",
           child
         );
         const target_path = path.join(currentPath, child);
-        const stat = fs.statSync(child_path);
+        const stat = await fs.stat(child_path);
 
         if (stat.isFile()) {
-          fs.copyFileSync(child_path, target_path);
+          await fs.copyFile(child_path, target_path);
         } else {
-          bfs.copyDir(child_path, target_path);
+          await bfs.copyDir(child_path, target_path);
         }
 
         console.log("[+] Build: " + target_path);

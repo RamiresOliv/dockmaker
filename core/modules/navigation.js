@@ -1,16 +1,17 @@
-const fs = require("fs");
+const fsDefault = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 const bfs = require("./bfs");
 
-module.exports = (pwd, configs, str, defaultReplaces, compilation) => {
+module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
   if (configs.book.navigation.enabled == false) return str;
-  function formatFilesInDirectory(directory, prefix = "", level = 1) {
+  async function formatFilesInDirectory(directory, prefix = "", level = 1) {
     let result = [];
     let fileIndex = 2; // Contador global dentro do nível atual
 
-    const files = fs.readdirSync(directory);
+    const files = await fs.readdir(directory);
 
-    files.forEach((file) => {
+    files.forEach(async (file) => {
       let filePathDefault = path.join(directory, file).replace(src + "\\", "");
       let rightPATH = filePathDefault.replace(new RegExp(" ", "g"), "-");
       let rightNAME = path.basename(file);
@@ -38,7 +39,7 @@ module.exports = (pwd, configs, str, defaultReplaces, compilation) => {
       }
 
       const filePath = path.join(directory, file);
-      const fileStat = fs.statSync(filePath);
+      const fileStat = await fs.stat(filePath);
       const newPrefix = prefix ? `${prefix}.${fileIndex}` : `${fileIndex}`; // Adiciona ponto no final do prefixo principal
       const marginLeft = (level - 1) * 20;
 
@@ -48,7 +49,7 @@ module.exports = (pwd, configs, str, defaultReplaces, compilation) => {
             `<li style="margin-left: ${marginLeft}px"><a href="\${book_url}/${rightPATH}">${newPrefix}. ${rightNAME}</a></li>`
           );
           result = result.concat(
-            formatFilesInDirectory(filePath, newPrefix, level + 1)
+            await formatFilesInDirectory(filePath, newPrefix, level + 1)
           );
           fileIndex++; // Incrementa o contador global
         }
@@ -70,7 +71,7 @@ module.exports = (pwd, configs, str, defaultReplaces, compilation) => {
   const nav_send = [];
   nav_send.push('<li><a href="${book_url}">1. home</a></li>');
 
-  const files = formatFilesInDirectory(src);
+  const files = await formatFilesInDirectory(src);
   files.forEach((v) => {
     nav_send.push(v);
   });

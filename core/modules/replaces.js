@@ -1,6 +1,8 @@
+const fsDefault = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 
-module.exports = (pwd, configs, str, compilation, origin, port) => {
+module.exports = async (pwd, configs, str, compilation, origin, port) => {
   const output_dir = path.join(pwd, configs.settings.output.dir);
   const src_dir = path.join(pwd, configs.settings.src.dir);
 
@@ -42,8 +44,8 @@ module.exports = (pwd, configs, str, compilation, origin, port) => {
   );
 
   const replacer_dir = path.join(__dirname, "replacer");
-  require("fs")
-    .readdirSync(replacer_dir)
+  await require("fs/promises")
+    .readdir(replacer_dir)
     .forEach((v) => {
       const what = path.join(replacer_dir, v);
       str = require(what)(pwd, configs, str, defaultReplaces, compilation);

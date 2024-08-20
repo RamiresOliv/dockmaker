@@ -1,7 +1,7 @@
 {
   "name": "dockmaker",
   "description": "A simple tool to make documentation websites.\n  https://github.com/RamiresOliv/dockmaker",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "main": "bin/dockmaker",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

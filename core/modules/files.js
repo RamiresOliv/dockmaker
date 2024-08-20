@@ -1,11 +1,13 @@
-const fs = require("fs");
+const fsDefault = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 const colors = require("colors-cli");
 
 const jsonMaps = path.join(__dirname, "/../configs");
 
-function compareJsonMap(jsonPath) {
-  const json = JSON.parse(fs.readFileSync(jsonPath).toString());
+async function compareJsonMap(jsonPath) {
+  const readJson = await fs.readFile(jsonPath);
+  const json = JSON.parse(readJson.toString());
   const map = JSON.parse(
     fs.readFileSync(path.join(jsonMaps, path.basename(jsonPath))).toString()
   );
@@ -51,7 +53,7 @@ exports.validate = async (dir) => {
   let files = ["settings.json", "book.json"];
 
   files.forEach((file) => {
-    if (!fs.existsSync(path.join(dir, file))) {
+    if (!fsDefault.existsSync(path.join(dir, file))) {
       isMissing = true;
       missingFiles.push(file);
     }
@@ -67,7 +69,7 @@ exports.validate = async (dir) => {
       ),
     ];
 
-  const r_settings = compareJsonMap(path.join(dir, "settings.json"));
+  const r_settings = await compareJsonMap(path.join(dir, "settings.json"));
   if (r_settings[0] == false) {
     return [
       false,
@@ -79,7 +81,7 @@ exports.validate = async (dir) => {
     ];
   }
 
-  const r_book = compareJsonMap(path.join(dir, "book.json"));
+  const r_book = await compareJsonMap(path.join(dir, "book.json"));
   if (r_book[0] == false) {
     return [
       false,
@@ -97,11 +99,11 @@ exports.checks = async (settings) => {
     return console.error(
       colors.red("[error] null argument 'settings'. <- internal error")
     );
-  if (!fs.existsSync(settings.output.dir)) {
-    fs.mkdirSync(settings.output.dir);
+  if (!fsDefault.existsSync(settings.output.dir)) {
+    await fs.mkdir(settings.output.dir);
   }
-  if (!fs.existsSync(settings.src.dir)) {
-    fs.mkdirSync(settings.src.dir);
+  if (!fsDefault.existsSync(settings.src.dir)) {
+    await fs.mkdir(settings.src.dir);
   }
 };
 
@@ -112,8 +114,8 @@ exports.getSettings = (dir) => {
   const sp = path.join(dir, "settings.json");
   const bp = path.join(dir, "book.json");
 
-  if (fs.existsSync(sp)) settingsR = require(sp);
-  if (fs.existsSync(bp)) bookR = require(bp);
+  if (fsDefault.existsSync(sp)) settingsR = require(sp);
+  if (fsDefault.existsSync(bp)) bookR = require(bp);
 
   return {
     settings: settingsR,

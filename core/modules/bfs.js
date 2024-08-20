@@ -1,4 +1,5 @@
-const fs = require("fs");
+const fsDefault = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 const readline = require("readline");
 
@@ -8,9 +9,9 @@ async function copyDirectory(src, dest) {
     ? dest
     : path.join(dest, baseDirName);
 
-  await fs.promises.mkdir(destPath, { recursive: true });
+  await fs.mkdir(destPath, { recursive: true });
 
-  const entries = await fs.promises.readdir(src, { withFileTypes: true });
+  const entries = await fs.readdir(src, { withFileTypes: true });
 
   for (let entry of entries) {
     const srcPath = path.join(src, entry.name);
@@ -19,7 +20,7 @@ async function copyDirectory(src, dest) {
     if (entry.isDirectory()) {
       await copyDirectory(srcPath, targetPath);
     } else if (entry.isFile()) {
-      await fs.promises.copyFile(srcPath, targetPath);
+      await fs.copyFile(srcPath, targetPath);
     }
   }
 }
@@ -28,15 +29,15 @@ exports.copyDir = async (src, dest) => {
   await copyDirectory(src, dest);
 };
 
-exports.readFullDir = (dir) => {
+exports.readFullDir = async (dir) => {
   const result = [];
 
   function readDir(currentPath) {
-    const items = fs.readdirSync(currentPath);
+    const items = fs.readdir(currentPath);
 
-    items.forEach((item) => {
+    items.forEach(async (item) => {
       const fullPath = path.join(currentPath, item);
-      const stats = fs.statSync(fullPath);
+      const stats = await fs.stat(fullPath);
 
       if (stats.isDirectory()) {
         // if (item.startsWith("_")) {
@@ -56,7 +57,7 @@ exports.readFullDir = (dir) => {
 
 exports.readFileLines = (filePath, newLineListener, closeListener) => {
   const rl = readline.createInterface({
-    input: fs.createReadStream(filePath),
+    input: require("fs").createReadStream(filePath),
     crlfDelay: Infinity,
   });
 

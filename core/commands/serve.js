@@ -1,6 +1,7 @@
 const { Command } = require("commander");
 const path = require("path");
-const fs = require("fs");
+const fsDefault = require("fs");
+const fs = require("fs/promises");
 const express = require("express");
 const colors = require("colors-cli");
 
@@ -27,16 +28,14 @@ module.exports = new Command("serve")
     if (!validade[0]) {
       return console.error("[error] " + validade[1]);
     }
-
+    await files.checks(configs.settings);
     const configs = files.getSettings(currentPath);
-    files.checks(configs.settings);
-
     const output_dir = path.join(currentPath, configs.settings.output.dir);
     const src_dir = path.join(currentPath, configs.settings.src.dir);
-
     const app = express();
     app.use(express.static(output_dir));
 
+    // lets go
     console.clear();
     if (
       (options && !options.build) ||
@@ -54,15 +53,21 @@ module.exports = new Command("serve")
     }
 
     app.listen(port);
-    app.get("*", (req, res) => {
+    app.get("*", async (req, res) => {
       let paaath = req.path;
 
       if (paaath == "/") {
-        let emptyData = fs
-          .readFileSync(path.join(__dirname, "/../templates/empty.html"))
-          .toString();
+        let emptyData = (
+          await fs.readFile(path.join(__dirname, "/../templates/empty.html"))
+        ).toString();
 
-        emptyData = replaces(currentPath, configs, emptyData, null, src_dir);
+        emptyData = await replaces(
+          currentPath,
+          configs,
+          emptyData,
+          null,
+          src_dir
+        );
         return res.send(emptyData);
       } else {
         if (paaath.endsWith("/")) {
@@ -70,12 +75,12 @@ module.exports = new Command("serve")
         }
 
         const file = path.join(output_dir, paaath + ".html");
-        if (!fs.existsSync(path.join(output_dir, paaath + ".html"))) {
+        if (!fsDefault.existsSync(path.join(output_dir, paaath + ".html"))) {
           let path404 = path.join(__dirname, "/../templates/error.html");
 
           const what = path.join(output_dir, "404.html");
-          if (fs.existsSync(what)) path404 = what;
-          let error = fs.readFileSync(path404).toString();
+          if (fsDefault.existsSync(what)) path404 = what;
+          let error = (await fs.readFile(path404)).toString();
 
           error = error.replace(
             new RegExp("HOME_URL", "g"),
@@ -101,10 +106,10 @@ module.exports = new Command("serve")
         return res.sendFile(file);
       }
     });
-    app.use((err, req, res, next) => {
-      let error = fs
-        .readFileSync(path.join(__dirname, "/../templates/error.html"))
-        .toString();
+    app.use(async (err, req, res, next) => {
+      let error = (
+        await fs.readFile(path.join(__dirname, "/../templates/error.html"))
+      ).toString();
       error = error.replace(
         new RegExp("HOME_URL", "g"),
         "http://127.0.0.1:" + port
@@ -121,17 +126,17 @@ module.exports = new Command("serve")
 
     let watchs = [];
 
-    function loadListeners() {
-      const read = bfs.readFullDir(src_dir);
+    async function loadListeners() {
+      const read = await bfs.readFullDir(src_dir);
       watchs.push(
-        fs.watch(src_dir, () => {
-          changed(src_dir);
+        fs.watch(src_dir, async () => {
+          await changed(src_dir);
         })
       );
       read.forEach((file) => {
         try {
-          const watcher = fs.watch(file, () => {
-            changed(file);
+          const watcher = fs.watch(file, async () => {
+            await changed(file);
           });
           watcher.on("error", (error) => {
             if (error.code === "ENOENT" || error.code === "EPERM") {
@@ -148,9 +153,7 @@ module.exports = new Command("serve")
     }
 
     let working = true;
-    let timeoutEvent = null;
-
-    function changed(fileName) {
+    async function changed(fileName) {
       watchs.forEach((v) => {
         v.close();
       });
@@ -161,22 +164,14 @@ module.exports = new Command("serve")
         console.log(
           colors.magenta("[*] Changes detected in: " + path.basename(fileName))
         );
-
-        clearTimeout(timeoutEvent);
         working = true;
-        let errored = false;
         try {
-          build(currentPath, configs, false, options.port || null);
+          await build(currentPath, configs, false, options.port || null);
+          console.log(colors.cyan_bt("[*] Last build was successful."));
+          working = false;
         } catch (error) {
-          errored = true;
           console.log(colors.red("[!] Last build error: " + error));
         }
-        timeoutEvent = setTimeout(() => {
-          if (!errored)
-            console.log(colors.cyan_bt("[*] Last build was successful."));
-          //console.log(colors.blink("-".repeat(100)));
-          working = false;
-        }, 200);
       }
       loadListeners();
     }

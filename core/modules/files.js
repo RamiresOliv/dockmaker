@@ -46,7 +46,7 @@ async function compareJsonMap(jsonPath) {
 
   return [true];
 }
-// dance in the dark
+
 exports.validate = async (dir) => {
   let isMissing = false;
   let missingFiles = [];

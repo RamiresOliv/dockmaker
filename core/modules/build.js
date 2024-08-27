@@ -9,17 +9,21 @@ const md = markdownit();
 const includes = path.join(__dirname, "/../includes");
 const templates = path.join(__dirname, "/../templates");
 
-function compile(origen, callback) {
+async function compile(origen, callback) {
   let compilerResult = [];
-  function onNewLine(line) {
+  /*function onNewLine(line) {
     if (line.startsWith("<")) {
       compilerResult.push(line);
     } else {
       const a = md.render(line);
       compilerResult.push(a);
     }
-  }
-  bfs.readFileLines(origen, onNewLine, () => callback(compilerResult));
+  }*/
+  const read = await fs.readFile(origen);
+  compilerResult.push(md.render(read.toString()));
+
+  callback(compilerResult);
+  //bfs.readFileLines(origen, onNewLine, () => callback(compilerResult));
 }
 
 async function work(pwd, configs, child, target, talk, customPort) {

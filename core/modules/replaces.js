@@ -23,7 +23,7 @@ module.exports = async (pwd, configs, str, compilation, origin, port) => {
 
   let defaultReplaces = {
     book_name: configs.book.name,
-    book_description: configs.book.description,
+    book_description: configs.book.description.replace(/"/g, ""),
     book_url: url,
     page_name: pName,
     page_output_path: path
@@ -31,6 +31,11 @@ module.exports = async (pwd, configs, str, compilation, origin, port) => {
       .replace(".md", ".html"),
     page_src_path: origin,
     page_path: origin.replace(src_dir + "\\", ""),
+    page_formated_path: origin
+      .replace(src_dir + "\\", "")
+      .replace("index.md", "")
+      .replace(/.md/g, "")
+      .replace(/\\/g, "/"),
     author_github: configs.book.author.github,
     author_name: configs.book.author.name,
   };

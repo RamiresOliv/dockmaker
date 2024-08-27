@@ -7,7 +7,7 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
   if (configs.book.navigation.enabled == false) return str;
   async function formatFilesInDirectory(directory, prefix = "", level = 1) {
     let result = [];
-    let fileIndex = 2; // Contador global dentro do nível atual
+    let fileIndex = 2;
 
     const files = await fs.readdir(directory);
 
@@ -40,7 +40,7 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
 
       const filePath = path.join(directory, file);
       const fileStat = await fs.stat(filePath);
-      const newPrefix = prefix ? `${prefix}.${fileIndex}` : `${fileIndex}`; // Adiciona ponto no final do prefixo principal
+      const newPrefix = prefix ? `${prefix}.${fileIndex}` : `${fileIndex}`;
       const marginLeft = (level - 1) * 20;
 
       if (fileStat.isDirectory()) {
@@ -51,14 +51,14 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
           result = result.concat(
             await formatFilesInDirectory(filePath, newPrefix, level + 1)
           );
-          fileIndex++; // Incrementa o contador global
+          fileIndex++;
         }
       } else if (validExt(path.extname(file))) {
         if (rightNAME.toLowerCase() !== "index") {
           result.push(
             `<li style="margin-left: ${marginLeft}px"><a href="\${book_url}/${rightPATH}">${newPrefix}. ${rightNAME}</a></li>`
           );
-          fileIndex++; // Incrementa o contador global
+          fileIndex++;
         }
       }
     }

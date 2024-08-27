@@ -1,5 +1,5 @@
 /*
-You can disable this super insane css by removing "${import:css/core-base.css}", or deleting this file.
+You can disable this super insane css by removing "$ {import:css/core-base.css}", or deleting this file.
 */
 
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
@@ -10,6 +10,11 @@ ul {
   margin: 0;
   padding: 0;
   font-family: "Inconsolata", monospace;
+  background-color: #fcfcfc;
+}
+
+body:black_theme {
+  background-color: #191b1b;
 }
 
 ul ul {
@@ -21,13 +26,17 @@ a {
   color: #000000;
 }
 
+a:dark_theme {
+  color: #e8e7e2;
+}
+
 .container {
   display: flex;
   height: 100vh;
 }
 
 ::-webkit-scrollbar {
-  width: 8px; /* Largura da barra de rolagem */
+  width: 8px;
 }
 
 .sidebar {
@@ -43,6 +52,10 @@ a {
   overflow: auto;
   min-width: 160px;
   max-width: 1000px;
+}
+
+#sidebar_black_theme {
+  background-color: #1b1c1f;
 }
 
 .sidebar ul {
@@ -62,6 +75,10 @@ a {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.sidebar ul li a:black_theme {
+  background-color: #e8e7e2;
 }
 
 .sidebar ul li a:hover {
@@ -125,6 +142,13 @@ a {
   position: relative;
 }
 
+.content .header:dark_theme {
+  color: #e8e7e2;
+}
+.content .header:dark_theme {
+  color: #e8e7e2;
+}
+
 .content .header h3 {
   font-weight: 900;
 }
@@ -140,11 +164,23 @@ a {
   left: 0px;
   flex: 10px;
   padding-left: 15px;
+
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 .content .header .right {
   position: absolute;
   right: 0;
   padding-right: 20px;
+
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 i {
@@ -177,16 +213,20 @@ button:hover {
 }
 
 code {
-  font-family: "Courier New", Courier, monospace; /* Fonte monoespaçada */
-  background-color: #f8f8f8; /* Fundo suave */
-  border-radius: 4px; /* Cantos arredondados */
-  padding: 8px; /* Espaçamento interno */
-  color: #333; /* Cor do texto */
-  overflow-x: auto; /* Rolagem horizontal se necessário */
+  font-family: "Courier New", Courier, monospace;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  padding: 8px;
+  color: #333;
+  overflow-x: auto;
 }
 code {
-  display: inline; /* Exibe inline para código embutido */
-  background-color: #e6e6e6; /* Fundo mais claro para código inline */
-  padding: 2px 4px; /* Espaçamento interno reduzido */
-  border-radius: 4px; /* Cantos arredondados */
+  display: inline;
+  background-color: #e6e6e6;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+code:dark_theme {
+  background-color: #e6e6e6;
 }

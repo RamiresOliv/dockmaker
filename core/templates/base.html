@@ -7,7 +7,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="${book_description}" />
+    <meta name="author" content="${author_name}" />
+
+    <meta property="og:site_name" content="${book_name}" />
+    <meta property="og:title" content="${book_name} / ${page_name}" />
+    <meta property="og:image" content="${book_url}/favicon.ico" />
+    <meta property="og:description" content="${book_description}" />
+    <meta property="og:url" content="${book_url}/${page_formated_path}" />
+
     <title>${book_name} / ${page_name}</title>
     <link
       rel="shortcut icon"
@@ -23,7 +33,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- and it's easy to individually load additional languages -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/clojure.min.js"></script>
     <script>
       hljs.highlightAll();
     </script>
@@ -36,10 +46,38 @@
 
     <script>
       window.onload = () => {
+        const body = document.getElementsByClassName("body");
         const glossary = document.getElementById("glossary");
         const github_logo = document.getElementById("github_logo");
         const menu_toggle = document.getElementById("menu_toggle");
         const print_icon = document.getElementById("print_icon");
+        const theme_toggle_moon = document.getElementById("theme_toggle");
+
+        const themes = {
+          dark: "fa-solid fa-moon",
+          white: "fa-solid fa-sun",
+        };
+
+        // New things comming...
+        /*let themeIs = 0; // 0: dark, 1: white
+
+        const themeFunc = (m) => {
+          if (themeIs == 0) {
+            themeIs = 1;
+            theme_toggle_sun.style.display = null;
+            theme_toggle_moon.style.display = "none";
+
+            body.className = "black_theme";
+          } else {
+            themeIs = 0;
+            theme_toggle_sun.style.display = "none";
+            theme_toggle_moon.style.display = null;
+            body.className = "";
+          }
+        };
+
+        theme_toggle_moon.addEventListener("click", themeFunc);
+        theme_toggle_sun.addEventListener("click", themeFunc);*/
 
         let menu_state = true;
         menu_toggle.addEventListener("click", (m) => {
@@ -59,12 +97,13 @@
         });
 
         print_icon.addEventListener("click", (m) => {
+          console.log("This feature is still in dev.");
           print();
         });
       };
     </script>
   </head>
-  <body>
+  <body class="body">
     <div class="container">
       <nav id="glossary" class="sidebar">
         <div class="header">
@@ -101,6 +140,16 @@
               class="fa-brands fa-github"
               style="cursor: pointer"
             ></i>
+            <!-- <i
+              id="theme_toggle_moon"
+              class="fa-solid fa-moon"
+              style="color: #ffffff; cursor: pointer"
+            ></i>
+            <i
+              id="theme_toggle_sun"
+              class="fa-solid fa-sun"
+              style="cursor: pointer; display: none"
+            ></i> -->
           </div>
           <div class="right"></div>
         </div>

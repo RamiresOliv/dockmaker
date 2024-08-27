@@ -11,7 +11,10 @@ npm install -g dockmaker
 
 ## Notes
 
-I don't have a discord guild or any other method of contact, because this is just a demo, you can still use but remeber that, every thing here is subject to future changes.
+I don't have a discord guild or any other method of contact, because this is just a demo, you can still use but remember that, everything here is subject to future changes.
+
+**Keep this npm most updated possible!**
+Bug fixes can happens, new features can be launched any time. So, keep updating this npm to test the new features of dockmaker.
 
 ## [WIP] Documentation:
 

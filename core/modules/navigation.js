@@ -8,12 +8,19 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
   async function formatFilesInDirectory(directory, prefix = "", level = 1) {
     let result = [];
     let fileIndex = 2;
+    const index_path = path.join(directory, "index.md");
+
+    if (fsDefault.existsSync(index_path)) {
+      fileIndex = 1;
+    }
 
     const files = await fs.readdir(directory);
 
     for (const file of files) {
       let filePathDefault = path.join(directory, file).replace(src + "\\", "");
-      let rightPATH = filePathDefault.replace(new RegExp(" ", "g"), "-");
+      let rightPATH = filePathDefault
+        .replace(new RegExp(" ", "g"), "-")
+        .replace(/\\/g, "/");
       let rightNAME = path.basename(file);
 
       if (configs.book.navigation.whitelist[0] != "*") {
@@ -56,7 +63,7 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
       } else if (validExt(path.extname(file))) {
         if (rightNAME.toLowerCase() !== "index") {
           result.push(
-            `<li style="margin-left: ${marginLeft}px"><a href="\${book_url}/${rightPATH}">${newPrefix}. ${rightNAME}</a></li>`
+            `<li style="margin-left: ${marginLeft}px"><a href="\${book_url}/${rightPATH}">${newPrefix}: ${rightNAME}</a></li>`
           );
           fileIndex++;
         }
@@ -69,7 +76,7 @@ module.exports = async (pwd, configs, str, defaultReplaces, compilation) => {
   const src = path.join(pwd, configs.settings.src.dir);
   const output = path.join(pwd, configs.settings.output.dir);
   const nav_send = [];
-  nav_send.push('<li><a href="${book_url}">1. home</a></li>');
+  nav_send.push('<li><a href="${book_url}">1:: home</a></li>');
 
   const files = await formatFilesInDirectory(src);
   for (const v of files) {

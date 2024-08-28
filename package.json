@@ -1,7 +1,7 @@
 {
   "name": "dockmaker",
   "description": "A simple tool to make documentation websites.\n  https://github.com/RamiresOliv/dockmaker",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "main": "bin/dockmaker",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,15 @@
     "dockmaker": "bin/dockmaker",
     "dkm": "bin/dockmaker"
   },
-  "keywords": [],
+  "keywords": [
+    "docs",
+    "javascript",
+    "html",
+    "css",
+    "website",
+    "documentation",
+    "cli"
+  ],
   "author": "RamiresOliv",
   "license": "MIT",
   "dependencies": {

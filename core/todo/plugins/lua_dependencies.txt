@@ -1,0 +1,2 @@
+! mark as "!" to be a commentary.
+! this file is where you can install dependencies to your puglins folder, like, you can set a lot of stuff here.

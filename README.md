@@ -1,7 +1,7 @@
 # Dockmaker [DEMO]
 
 A simple, easy to use and customizable documentation website creator.<br>
-_"You now can use marketdown to do whatever you want"_
+_"You now can use markdown to do whatever you want"_
 
 Try it now!!
 

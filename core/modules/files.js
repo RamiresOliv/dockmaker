@@ -3,7 +3,7 @@ const fs = require("fs/promises");
 const path = require("path");
 const colors = require("colors-cli");
 
-const jsonMaps = path.join(__dirname, "/../configs");
+const jsonMaps = path.join(__dirname, "/../mapping/json");
 
 async function compareJsonMap(jsonPath) {
   const readJson = await fs.readFile(jsonPath);
